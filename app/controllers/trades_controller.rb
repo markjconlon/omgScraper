@@ -8,17 +8,17 @@ class TradesController < ApplicationController
   end
 
   def check_trades
-    x = 600
+    x = 2400
     x.times do
       begin
         liqui_response = HTTParty.get('https://api.liqui.io/api/3/depth/omg_eth?limit=10')
-      rescue Errno::ETIMEDOUT, Net::OpenTimeout
+      rescue Errno::ETIMEDOUT, Net::OpenTimeout, Errno::ECONNRESET
         puts "poloniex rescue"
         retry
       end
       begin
         poloniex_response = HTTParty.get('https://poloniex.com/public?command=returnOrderBook&currencyPair=ETH_OMG&depth=10')
-      rescue Errno::ETIMEDOUT, Net::OpenTimeout
+      rescue Errno::ETIMEDOUT, Net::OpenTimeout, Errno::ECONNRESET
         puts "poloniex rescue"
         retry
       end
