@@ -1,4 +1,5 @@
 class Trade < ApplicationRecord
+  require "csv"
 
   def self.check_trades(liqui_response, poloniex_response)
 
@@ -47,6 +48,15 @@ class Trade < ApplicationRecord
       Trade.create(sell_exchange: data[0][0], sell_rate: data[0][1][0], buy_exchange: data[1][0], buy_rate: data[1][1][0], amount: data[0][1][1], rate_above_break_even: data[2])
     else
       Trade.create(sell_exchange: data[0][0], sell_rate: data[0][1][0], buy_exchange: data[1][0], buy_rate: data[1][1][0], amount: data[1][1][1], rate_above_break_even: data[2])
+    end
+  end
+
+  def self.to_csv(options={})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |trade|
+        csv << trade.attributes.values
+      end
     end
   end
 end
