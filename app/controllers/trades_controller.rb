@@ -2,6 +2,10 @@ class TradesController < ApplicationController
 
   def index
     @trades = Trade.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @trades.to_csv }
+    end
   end
 
   def show

@@ -3,6 +3,11 @@
   <%= link_to 'Check Trades', trades_check_trades_path, method: :post %>
 </div>
 
+<p>
+  Download
+  <%= link_to "CSV", trades_index_path(format: "csv") %>
+</p>
+
 <table>
   <tr class="header">
     <td>ID</td>
