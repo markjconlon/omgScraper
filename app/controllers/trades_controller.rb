@@ -17,7 +17,7 @@ class TradesController < ApplicationController
       begin
         liqui_response = HTTParty.get('https://api.liqui.io/api/3/depth/omg_eth?limit=10')
       rescue Errno::ETIMEDOUT, Net::OpenTimeout, Errno::ECONNRESET, OpenSSL::SSL::SSLError
-        puts "poloniex rescue"
+        puts "liqui rescue"
         retry
       end
       begin
